@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"time"
 )
 
 type Links struct {
@@ -43,10 +44,10 @@ func main() {
 	})
 	http.HandleFunc("/createshort", func(w http.ResponseWriter, r *http.Request) {
 		longUrl := r.URL.Query().Get("url")
-
+		shortUrl := writing(longUrl)
 		show := ViewResult{
 			Long:  longUrl,
-			Short: writing(longUrl),
+			Short: shortUrl,
 		}
 		tmpl, _ := template.ParseFiles("html/done.html")
 		tmpl.Execute(w, show)
@@ -75,7 +76,7 @@ func reading() Links {
 func writing(long string) string {
 	symbols := "abcdefgjhijklmnopqrstuvwxyzABCDEFGJHIJKLMNOPQRSTUVWXYZ1234567890"
 	short := ""
-	rand.Seed(41)
+	rand.Seed(time.Now().UnixNano())
 	for j := 0; j < 8; j++ {
 		short += string(symbols[rand.Intn(len(symbols))])
 	}
