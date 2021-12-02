@@ -1,5 +1,5 @@
 # go-url-shortener
-A URL shortener written on Go.
+A URL shortener written in Go.
 
 to start the server run main.go <br>
 server will listening on localhost:2212
